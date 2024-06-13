@@ -20,7 +20,7 @@ const EventDetails = () => {
     const fetchEvent = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/event/${id}`
+          `https://inventory-backend-ooh5.onrender.com/api/v1/event/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch event");
@@ -81,7 +81,7 @@ const EventDetails = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/event-booking",
+        "https://inventory-backend-ooh5.onrender.com/api/v1/event-booking",
         {
           method: "POST",
           headers: {

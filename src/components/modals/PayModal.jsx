@@ -34,7 +34,7 @@ const PaymentForm = ({ total, onClose, onPaymentSuccess, booking, token }) => {
     }
 
     try {
-      //   const response = await fetch("http://localhost:5000/api/v1/payment", {
+      //   const response = await fetch("https://inventory-backend-ooh5.onrender.com/api/v1/payment", {
       //     method: "POST",
       //     headers: {
       //       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const PaymentForm = ({ total, onClose, onPaymentSuccess, booking, token }) => {
 
       // Perform booking action
       const bookingResponse = await fetch(
-        "http://localhost:5000/api/v1/event-booking",
+        "https://inventory-backend-ooh5.onrender.com/api/v1/event-booking",
         {
           method: "POST",
           headers: {

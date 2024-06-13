@@ -11,7 +11,9 @@ const Event = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/event");
+      const response = await fetch(
+        "https://inventory-backend-ooh5.onrender.com/api/v1/event"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch events");
       }

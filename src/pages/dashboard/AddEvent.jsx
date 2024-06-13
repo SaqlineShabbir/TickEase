@@ -41,7 +41,7 @@ const AddEvent = () => {
               setLoading(true);
               try {
                 const response = await fetch(
-                  "http://localhost:5000/api/v1/event",
+                  "https://inventory-backend-ooh5.onrender.com/api/v1/event",
                   {
                     method: "POST",
                     headers: {

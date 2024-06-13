@@ -28,7 +28,7 @@ const PaymentForm = ({ total, onClose, onPaymentSuccess }) => {
 
   //     // Send the payment method ID to your server for payment processing
   //     try {
-  //       const response = await fetch("http://localhost:5000/api/v1/payment", {
+  //       const response = await fetch("https://inventory-backend-ooh5.onrender.com/api/v1/payment", {
   //         method: "POST",
   //         headers: {
   //           "Content-Type": "application/json",
