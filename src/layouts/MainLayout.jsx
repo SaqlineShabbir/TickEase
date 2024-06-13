@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../components/shared/Footer";
 
 const MainLayout = () => {
   return (
     <div>
-      {/* <Navigation /> */}
       <div>
         <Outlet />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
