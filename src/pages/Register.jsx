@@ -24,7 +24,7 @@ const Register = () => {
 
     if (password === confirm_password) {
       const userInfo = {
-        email: data?.user?.email,
+        email: email,
         name: name,
         password: password,
       };
@@ -37,8 +37,8 @@ const Register = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          navigate("/login");
           console.log(data);
+          navigate("/login");
         });
 
       if (user) {
