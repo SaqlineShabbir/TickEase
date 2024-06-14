@@ -98,14 +98,14 @@ const Bookings = () => {
             <tbody>
               {bookings.map((booking) => (
                 <tr key={booking._id} className="border-b border-gray-200">
-                  <td className="py-4 px-6">{booking.event.name}</td>
+                  <td className="py-4 px-6">{booking?.event?.name}</td>
                   <td className="py-4 px-6">
                     {booking.total === 0 ? "Free" : "Paid"}
                   </td>
                   <td className="py-4 px-6">
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                      onClick={() => confirmCancelBooking(booking._id)}
+                      onClick={() => confirmCancelBooking(booking?._id)}
                     >
                       Cancel
                     </button>
