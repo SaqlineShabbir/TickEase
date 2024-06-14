@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [passMatch, setPassMatch] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState(false);
   const from = location?.state?.from?.pathname || "/";
 
-  const handleSUbmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -20,38 +21,50 @@ const Register = () => {
 
     if (password !== confirm_password) {
       setPassMatch(false);
+      setErrorMessage("");
+      return;
     }
 
-    if (password === confirm_password) {
-      const userInfo = {
-        email: email,
-        name: name,
-        password: password,
-      };
-      fetch("https://inventory-backend-ooh5.onrender.com/api/v1/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then((res) => res.json())
-        .then((data) => {
+    setPassMatch(true);
+
+    const userInfo = {
+      email: email,
+      name: name,
+      password: password,
+    };
+
+    fetch("https://inventory-backend-ooh5.onrender.com/api/v1/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (
+          data.status === "fail" &&
+          data.message === "User already exists with this email"
+        ) {
+          setErrorMessage("User already exists with this email");
+        } else if (data.status === "success") {
+          toast.success("User created successfully!");
           navigate("/login");
-        });
-
-      if (user) {
-        navigate(from);
-      }
-    }
+        }
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+        setErrorMessage("An error occurred. Please try again later.");
+      });
   };
 
   return (
     <form
-      onSubmit={handleSUbmit}
-      className="flex items-center justify-center min-h-screen "
+      onSubmit={handleSubmit}
+      className="flex items-center justify-center min-h-screen"
     >
-      <div className="max-w-md w-full bg-white rounded-lg  p-8">
+      <Toaster />
+      <div className="max-w-md w-full bg-white rounded-lg p-8 shadow-lg">
         <h1 className="text-3xl font-semibold mb-4 text-center">
           Register Now
         </h1>
@@ -99,7 +112,8 @@ const Register = () => {
           {!passMatch && (
             <p className="text-red-500">Passwords do not match!</p>
           )}
-          <button className="bg-green-400 focus:outline-none focus:bg-green-600 text-white w-full py-2 rounded-md ">
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          <button className="bg-green-400 focus:outline-none focus:bg-green-600 text-white w-full py-2 rounded-md transition duration-200">
             Register
           </button>
 

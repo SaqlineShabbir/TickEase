@@ -34,7 +34,7 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log(data?.token, data);
+
       if (data?.status === "success") {
         toast.success("Login successful!");
         // Store token in localStorage
