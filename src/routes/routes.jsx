@@ -38,15 +38,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "dashboard/booking",
-        element: <Bookings />,
+        element: (
+          <PrivateRoute>
+            <Bookings />
+          </PrivateRoute>
+        ),
       },
       {
         path: "dashboard/add-event",
-        element: <AddEvent />,
+        element: (
+          <PrivateRoute>
+            <AddEvent />
+          </PrivateRoute>
+        ),
       },
       {
         path: "dashboard/manage-events",
-        element: <Manageevents />,
+        element: (
+          <PrivateRoute>
+            <Manageevents />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,15 +1,22 @@
 import { createContext, useEffect, useState } from "react";
+
 export const AuthContext = createContext(null);
 
-// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [email, setEmail] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [email, setEmail] = useState(localStorage.getItem("email") || null);
   const [loading, setLoading] = useState(true);
 
-  const getUserInfo = async (email) => {
+  // Function to fetch user information
+  const getUserInfo = async () => {
     try {
+      if (!email) {
+        setUser(null);
+        setLoading(false);
+        return; // No email, no need to fetch user info
+      }
+
       const response = await fetch(
         `https://inventory-backend-ooh5.onrender.com/api/v1/user/${email}`
       );
@@ -17,42 +24,45 @@ const AuthProvider = ({ children }) => {
         throw new Error("Failed to fetch user information");
       }
       const userData = await response.json();
-      console.log(userData);
-      setUser(userData.data);
+      setUser(userData.data); // Update user state
+      setLoading(false);
       return userData;
     } catch (error) {
       console.error("Error fetching user information:", error.message);
+      setLoading(false);
       throw error;
     }
   };
 
+  // Effect to fetch user info on component mount and when email changes
   useEffect(() => {
-    getUserInfo(email);
+    getUserInfo();
   }, [email]);
-  //get token
-  useEffect(() => {
-    // Retrieve token from localStorage on component mount
-    const storedUserId = localStorage.getItem("email");
-    if (storedUserId) {
-      setEmail(storedUserId);
-    }
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, [token, email, getUserInfo]);
+
+  // Function to handle logout
   const logOut = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    getUserInfo(user?.email);
+    setUser(null);
+    setEmail(null);
+    setToken(null);
   };
 
+  // Function to update user information after successful login
+  const updateUserAfterLogin = async (loggedInEmail) => {
+    setEmail(loggedInEmail);
+    await getUserInfo();
+  };
+
+  // Provide auth information to consumers
   const authInfo = {
     user,
     logOut,
+    loading,
     token,
-    getUserInfo,
+    updateUserAfterLogin, // Function to update user info after login
   };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

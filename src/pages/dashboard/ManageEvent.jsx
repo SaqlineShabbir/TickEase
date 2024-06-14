@@ -93,16 +93,16 @@ const Manageevents = () => {
                 />
               </div>
             </div>
-            <div className="p-4 bg-white dark:bg-[#0a0c1c] flex justify-between">
+            <div className="p-4 bg-green-300 flex justify-between">
               <h3 className="text-xl font-semibold mb-2">{event?.name}</h3>
               <div className="flex space-x-5">
                 <span
                   onClick={() => setOpenModal(true)}
-                  className="text-pink-500 text-2xl cursor-pointer"
+                  className="text-green-500 text-2xl cursor-pointer"
                 >
                   <MdEditSquare onClick={() => handleSendId(event)} />
                 </span>
-                <span className="text-2xl text-pink-500 cursor-pointer">
+                <span className="text-2xl text-green-500 cursor-pointer">
                   <AiFillDelete onClick={() => handleDeleteEvent(event?._id)} />
                 </span>
               </div>

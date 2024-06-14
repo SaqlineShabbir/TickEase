@@ -67,7 +67,7 @@ const PaymentForm = ({ total, onClose, onPaymentSuccess, booking, token }) => {
         throw new Error(errorData.message || "Booking failed");
       }
 
-      toast.success("Booking successful!");
+      // toast.success("Booking successful!");
       onPaymentSuccess();
     } catch (error) {
       toast.error(error.message || "Payment/Booking failed. Please try again.");

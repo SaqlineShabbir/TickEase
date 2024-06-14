@@ -50,9 +50,9 @@ const Register = () => {
   return (
     <form
       onSubmit={handleSUbmit}
-      className="flex items-center justify-center min-h-screen bg-gray-100"
+      className="flex items-center justify-center min-h-screen "
     >
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+      <div className="max-w-md w-full bg-white rounded-lg  p-8">
         <h1 className="text-3xl font-semibold mb-4 text-center">
           Register Now
         </h1>
@@ -100,7 +100,7 @@ const Register = () => {
           {!passMatch && (
             <p className="text-red-500">Passwords do not match!</p>
           )}
-          <button className="bg-orange-400 text-white w-full py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
+          <button className="bg-green-400 focus:outline-none focus:bg-green-600 text-white w-full py-2 rounded-md ">
             Register
           </button>
 

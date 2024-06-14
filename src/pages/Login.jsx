@@ -8,7 +8,7 @@ const Login = () => {
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
   const [error, setError] = useState(null);
-  const { user, getUserInfo } = useAuth();
+  const { user, updateUserAfterLogin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,11 +36,11 @@ const Login = () => {
       const data = await response.json();
       console.log(data?.token, data);
       if (data?.status === "success") {
-        getUserInfo(data?.user?.email);
         toast.success("Login successful!");
         // Store token in localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("email", data?.user?.email);
+        updateUserAfterLogin(data?.user?.email);
         navigate(from, { replace: true });
       } else {
         throw new Error("User not found");
@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center justify-center min-h-screen "
+      className="flex items-center justify-center py-40 "
     >
       <div className="max-w-md w-full bg-white rounded-lg p-8">
         <h1 className="text-3xl font-semibold mb-4 text-center">Login Now</h1>
@@ -91,7 +91,7 @@ const Login = () => {
           </div>
           <div className="form-control">
             <button
-              className="btn btn-primary w-full py-2 rounded-md bg-orange-400 focus:outline-none focus:bg-indigo-600"
+              className="btn btn-primary w-full py-2 rounded-md bg-green-400 focus:outline-none focus:bg-green-600"
               type="submit"
             >
               Login

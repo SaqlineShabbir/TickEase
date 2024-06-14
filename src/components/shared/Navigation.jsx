@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import img from "../../assets/react.svg";
+import img from "../../assets/tickease-removebg-preview.png";
 import useAuth from "../../hooks/useAuth";
+
 export default function Navigation() {
   const [dropdown, setDropdown] = useState(false);
   const [navbar, setNavbar] = useState(false);
-  const { user, logOut } = useAuth();
+  const { logOut: signout, user, getUserInfo } = useAuth();
 
-  //dropdown
+  // Dropdown ref for handling click outside
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -20,20 +21,30 @@ export default function Navigation() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
 
+  // Logout functionality
+  const logOut = async () => {
+    await signout();
+
+    localStorage.removeItem("token");
+    getUserInfo();
+  };
+
   return (
-    <nav className="w-full  py-5 border-b-[1px] fixed top-0 left-0 right-0 z-20">
+    <nav
+      id="home"
+      className="w-full bg-gradient-to-br from-green-100 to-green-200  py-5  relative"
+    >
       <div className="justify-between px-4 md:items-center md:flex md:px-20">
         <div>
           <div className="flex items-center justify-between md:block">
             <Link to="/">
               <div className="flex cursor-pointer">
-                <img className="w-[50px]" src={img} alt="Logo" />
+                <img className="w-[150px]" src={img} alt="" />
               </div>
             </Link>
             <div className="md:hidden">
@@ -75,22 +86,21 @@ export default function Navigation() {
           </div>
         </div>
         <div>
+          {/* Nav links */}
           <div
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
               navbar ? "block" : "hidden"
             }`}
           >
-            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 dark:text-white">
+            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 dark: ">
               <li className="hover:text-black-600 focus:border-gray-100 cursor-pointer">
                 <Link to="/">
                   <p>Home</p>
                 </Link>
               </li>
-              <li className="hover:text-black-600 cursor-pointer">
-                <Link to="/shop">
-                  <p>Shop</p>
-                </Link>
-              </li>
+
+              {/* Additional navigation items */}
+              {/* User dashboard dropdown */}
               {user && (
                 <li
                   className="group relative cursor-pointer"
@@ -98,18 +108,13 @@ export default function Navigation() {
                   ref={dropdownRef}
                 >
                   <div className="flex items-center">
-                    <p className="hover:text-black-600">Dashboard</p>
+                    <p className="hover:text-black-600">Dashboard </p>
                     <RiArrowDropDownLine size={35} />
                   </div>
-
+                  {/* Dropdown menu */}
                   {dropdown && (
-                    <div className="lg:absolute bg-white dark:bg-[#e5ca1b] dark:text-white text-black right-0 w-[200px] border border-gray-200 py-5 transition-all duration-300 opacity-100 transform scale-y-100">
+                    <div className="lg:absolute bg-green-300 dark:text-black right-0 w-[200px] border border-gray-200 py-5 transition-all duration-300 opacity-100 transform scale-y-100 z-50">
                       <ul>
-                        <Link to="dashboard/profile">
-                          <li className="px-4 py-2 transition-all duration-300 opacity-100 transform scale-100 hover:bg-gray-100 hover:text-black">
-                            Profile
-                          </li>
-                        </Link>
                         <Link to="dashboard/booking">
                           <li className="px-4 py-2 transition-all duration-300 opacity-100 transform scale-100 hover:bg-gray-100 hover:text-black">
                             Booking
@@ -130,28 +135,25 @@ export default function Navigation() {
                   )}
                 </li>
               )}
-              <li className="hover:text-black-600 cursor-pointer">
-                <Link to="/jobs">
-                  <p>Jobs</p>
-                </Link>
-              </li>
+              {/* Other navigation items */}
+
               {!user && (
-                <li className="hover:text-black-600 cursor-pointer">
-                  <Link to="/signup">
-                    <p>Signup</p>
-                  </Link>
-                </li>
-              )}
-              {!user && (
-                <li className="hover:text-black-600 cursor-pointer">
-                  <Link to="/login">
-                    <p>Login</p>
-                  </Link>
-                </li>
+                <>
+                  <li className="hover:text-black-600 cursor-pointer">
+                    <Link to="/signup">
+                      <p>Signup</p>
+                    </Link>
+                  </li>
+                  <li className="hover:text-black-600 cursor-pointer">
+                    <Link to="/login">
+                      <p>Login</p>
+                    </Link>
+                  </li>
+                </>
               )}
               {user && (
                 <li
-                  onClick={() => logOut()}
+                  onClick={logOut}
                   className="hover:text-black-600 cursor-pointer"
                 >
                   <Link to="/login">
@@ -159,8 +161,9 @@ export default function Navigation() {
                   </Link>
                 </li>
               )}
+              {/* User initials */}
               {user && (
-                <div>
+                <div className="">
                   <p className="font-bold text-xl py-2 border-white border-2 rounded-full px-4">
                     {user?.name?.slice(0, 1)}
                   </p>
