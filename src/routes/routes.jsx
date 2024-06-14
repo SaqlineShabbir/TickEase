@@ -6,6 +6,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AddEvent from "../pages/dashboard/AddEvent";
+import Bookings from "../pages/dashboard/Bookings";
+import Manageevents from "../pages/dashboard/ManageEvent";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -35,8 +37,16 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: "dashboard/booking",
+        element: <Bookings />,
+      },
+      {
         path: "dashboard/add-event",
         element: <AddEvent />,
+      },
+      {
+        path: "dashboard/manage-events",
+        element: <Manageevents />,
       },
     ],
   },

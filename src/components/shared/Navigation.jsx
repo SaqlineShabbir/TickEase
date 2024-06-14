@@ -110,14 +110,19 @@ export default function Navigation() {
                             Profile
                           </li>
                         </Link>
-                        <Link to="dashboard/add-event">
+                        <Link to="dashboard/booking">
                           <li className="px-4 py-2 transition-all duration-300 opacity-100 transform scale-100 hover:bg-gray-100 hover:text-black">
-                            Add Product
+                            Booking
                           </li>
                         </Link>
-                        <Link to="dashboard/manage-products">
+                        <Link to="dashboard/add-event">
                           <li className="px-4 py-2 transition-all duration-300 opacity-100 transform scale-100 hover:bg-gray-100 hover:text-black">
-                            Manage Products
+                            Add Event
+                          </li>
+                        </Link>
+                        <Link to="dashboard/manage-events">
+                          <li className="px-4 py-2 transition-all duration-300 opacity-100 transform scale-100 hover:bg-gray-100 hover:text-black">
+                            Manage Events
                           </li>
                         </Link>
                       </ul>
