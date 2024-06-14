@@ -30,22 +30,26 @@ const Event = () => {
         {events.map((event) => (
           <div
             key={event._id}
-            className="bg-white border rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+            className="bg-white border rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl flex flex-col"
+            style={{ height: "400px" }} // Adjust height to accommodate the button
           >
             <img
               src={event.photo}
               alt={event.name}
               className="w-full h-56 object-cover"
+              style={{ height: "150px" }} // Fixed height for the image
             />
-            <div className="p-4">
+            <div className="p-4 flex flex-col flex-grow">
               <h2 className="text-2xl font-bold mb-2">{event.name}</h2>
-              <p className="text-gray-600 mb-4">{event.description}</p>
+              <p className="text-gray-600 mb-4 line-clamp-2 flex-grow">
+                {event.description}
+              </p>
               <p className="text-gray-800 font-semibold mb-4">
                 ${event.price.toFixed(2)}
               </p>
               <Link
                 to={`/events/${event._id}`}
-                className="mt-4 inline-block bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300"
+                className="mt-auto bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300"
               >
                 View Details
               </Link>

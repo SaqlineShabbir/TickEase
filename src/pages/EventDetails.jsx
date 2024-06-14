@@ -131,7 +131,7 @@ const EventDetails = () => {
           <div className="lg:w-1/2">
             <p>Total: ${total}</p>
             <p className="text-2xl">{event.name}</p>
-            <span>{event.description}</span>
+            <span className="line-clamp-2">{event.description}</span>
 
             <div className="flex space-x-2 py-5">
               <span className="pt-2">Tickets:</span>
