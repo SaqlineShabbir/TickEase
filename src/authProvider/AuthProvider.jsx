@@ -4,7 +4,7 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(null);
   const [email, setEmail] = useState(localStorage.getItem("email") || null);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +26,8 @@ const AuthProvider = ({ children }) => {
       const userData = await response.json();
       setUser(userData.data); // Update user state
       setLoading(false);
+      const tok = localStorage.getItem("token");
+      setToken(tok);
       return userData;
     } catch (error) {
       console.error("Error fetching user information:", error.message);

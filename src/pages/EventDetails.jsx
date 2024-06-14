@@ -140,16 +140,16 @@ const EventDetails = () => {
               <div className="flex space-x-2 dark:text-black">
                 <button
                   onClick={handleDecrement}
-                  className="px-5 py-1 text-3xl bg-pink-100"
+                  className="px-5 py-1 text-3xl bg-green-100"
                 >
                   -
                 </button>
-                <button className="px-5 py-1 text-xl bg-pink-100">
+                <button className="px-5 py-1 text-xl bg-green-100">
                   {quantity}
                 </button>
                 <button
                   onClick={handleIncrement}
-                  className="px-5 py-1 text-xl bg-pink-100"
+                  className="px-5 py-1 text-xl bg-green-100"
                 >
                   +
                 </button>
@@ -157,7 +157,7 @@ const EventDetails = () => {
 
               <button
                 onClick={handleBooking}
-                className="px-5 py-1 text-xl bg-orange-400 text-white cursor-pointer"
+                className="px-5 py-1 text-xl bg-green-400 text-white cursor-pointer"
               >
                 Order Tickets
               </button>
@@ -169,7 +169,7 @@ const EventDetails = () => {
         <div className="space-x-10 py-5">
           <button
             className={`text-xl font-bold ${
-              active === "description" && "border-b-2 border-b-orange-400"
+              active === "description" && "border-b-2 border-b-green-400"
             }`}
             onClick={() => setActive("description")}
           >
@@ -177,7 +177,7 @@ const EventDetails = () => {
           </button>
           <button
             className={`text-xl font-bold ${
-              active === "reviews" && "border-b-2 border-b-orange-400"
+              active === "reviews" && "border-b-2 border-b-green-400"
             }`}
             onClick={() => setActive("reviews")}
           >

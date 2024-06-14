@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 
 const Bookings = () => {
@@ -63,9 +64,18 @@ const Bookings = () => {
       setBookings((prevBookings) =>
         prevBookings.filter((booking) => booking._id !== bookingId)
       );
+      toast.success("Booking canceled successfully!");
     } catch (error) {
       console.error("Error canceling booking:", error);
       setError(error.message);
+      toast.error("Failed to cancel booking!");
+    }
+  };
+
+  const confirmCancelBooking = (bookingId) => {
+    const confirmCancel = window.confirm("Are you sure you want to cancel?");
+    if (confirmCancel) {
+      handleCancelBooking(bookingId);
     }
   };
 
@@ -82,7 +92,6 @@ const Bookings = () => {
               <tr>
                 <th className="py-3 px-6 text-left">Event Name</th>
                 <th className="py-3 px-6 text-left">Type</th>
-
                 <th className="py-3 px-6 text-left">Action</th>
               </tr>
             </thead>
@@ -93,11 +102,10 @@ const Bookings = () => {
                   <td className="py-4 px-6">
                     {booking.total === 0 ? "Free" : "Paid"}
                   </td>
-
                   <td className="py-4 px-6">
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                      onClick={() => handleCancelBooking(booking._id)}
+                      onClick={() => confirmCancelBooking(booking._id)}
                     >
                       Cancel
                     </button>
